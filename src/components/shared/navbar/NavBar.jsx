@@ -56,7 +56,7 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-       { ! isShow ?  <button className="btn">Log In</button> :
+       { ! isShow ?  <Link to='/signin' className="btn">Log In</Link> :
 
           <div className="">
             <div className="dropdown dropdown-end">
