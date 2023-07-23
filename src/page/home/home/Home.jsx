@@ -1,8 +1,12 @@
+import SearchBar from "../searchBar/SearchBar";
 
 const Home = () => {
     return (
-        <div className="text-3xl text-center bg-green-300">
-            Home page 
+        <div className="container mx-auto h-screen">
+            <SearchBar />
+            
+            
+
         </div>
     );
 };

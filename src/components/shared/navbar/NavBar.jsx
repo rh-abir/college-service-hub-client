@@ -1,19 +1,25 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
+
+
+  const hover = "hover:text-subMain transitions text-white";
+  const Hover = ({ isActive }) => (isActive ? "text-subMain" : hover);
+
+
   const navLink = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink to="/" className={Hover}>Home</NavLink>
       </li>
       <li>
-        <Link to="/Colleges">Colleges</Link>
+        <NavLink to="/Colleges" className={Hover}>Colleges</NavLink>
       </li>
       <li>
-        <Link to="/admissionColleges">Admission</Link>
+        <NavLink to="/admissionColleges" className={Hover}>Admission</NavLink>
       </li>
       <li>
-        <Link to="/my-colleges">My College</Link>
+        <NavLink to="/my-colleges" className={Hover}>My College</NavLink>
       </li>
     </>
   );
@@ -21,7 +27,7 @@ const NavBar = () => {
   const isShow = false;
 
   return (
-    <div className="navbar bg-base-100 container mx-auto">
+    <div className="navbar bg-slate-500 mb-4 container rounded-2xl mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -45,19 +51,19 @@ const NavBar = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             {navLink}
-
           </ul>
         </div>
         <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {navLink}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{navLink}</ul>
       </div>
       <div className="navbar-end">
-       { ! isShow ?  <Link to='/signin' className="btn">Log In</Link> :
-
+        {!isShow ? (
+          <Link to="/signin" className="btn">
+            Log In
+          </Link>
+        ) : (
           <div className="">
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -70,18 +76,15 @@ const NavBar = () => {
                 className="menu menu-sm dropdown-content mt-2 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <a>
-                    Profile
-                  </a>
+                  <NavLink>Profile</NavLink>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <NavLink>Logout</NavLink>
                 </li>
               </ul>
             </div>
-          </div>}
-
-
+          </div>
+        )}
       </div>
     </div>
   );
