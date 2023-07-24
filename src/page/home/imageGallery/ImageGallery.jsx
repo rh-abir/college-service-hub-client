@@ -1,52 +1,34 @@
 import "./ImageGallery.css";
 
-import img1 from "../../../assets/imgCollage/img1.jpg";
-import img2 from "../../../assets/imgCollage/img2.jpg";
-import img3 from "../../../assets/imgCollage/img3.jpg";
-import img4 from "../../../assets/imgCollage/img4.jpg";
-import img5 from "../../../assets/imgCollage/img1.jpg";
-import img6 from "../../../assets/imgCollage/img2.jpg";
+import Masonry from "react-responsive-masonry";
+
+// import img1 from "../../../assets/imgCollage/img1.jpg";
+// import img2 from "../../../assets/imgCollage/img2.jpg";
+// import img3 from "../../../assets/imgCollage/img3.jpg";
+// import img4 from "../../../assets/imgCollage/img4.jpg";
+// import img5 from "../../../assets/imgCollage/img1.jpg";
+// import img6 from "../../../assets/imgCollage/img2.jpg";
 
 const ImageGallery = () => {
-  const data = [
-    {
-      id: 1,
-      imgSrc: img1,
-    },
-    {
-      id: 2,
-      imgSrc: img2,
-    },
-    {
-      id: 3,
-      imgSrc: img3,
-    },
-    {
-      id: 4,
-      imgSrc: img4,
-    },
-    {
-      id: 5,
-      imgSrc: img5,
-    },
-    {
-      id: 6,
-      imgSrc: img6,
-    },
+  const images = [
+    "https://i.ibb.co/hChBfT4/img6.jpg",
+    "https://i.ibb.co/mX9LwP9/img5.jpg",
+    "https://i.ibb.co/phxN9Kg/img4.jpg",
+    "https://i.ibb.co/fY0bC5p/img3jpg.jpg",
+    "https://i.ibb.co/HGqSSnB/img2.jpg",
+    "https://i.ibb.co/MNbyjGr/img1.jpg",
   ];
-
-  // console.log(data);
-
   return (
-    <div className="gallery">
-      {/* {data.map((item, index) => {
-        return (
-          <div key={index} className="pics">
-            <img src={item.imgSrc} style={{ width: "100%" }} alt="" />
-          </div>
-        );
-      })} */}
-      <h2>Tih is gallerys</h2>
+    <div>
+      <Masonry columnsCount={3} gutter="10px">
+        {images.map((image, i) => (
+          <img
+            key={i}
+            src={image}
+            style={{ width: "100%", display: "block" }}
+          />
+        ))}
+      </Masonry>
     </div>
   );
 };

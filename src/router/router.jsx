@@ -8,6 +8,7 @@ import Colleges from "../page/colleges/Colleges";
 import MyCollege from "../page/myCollege/MyCollege";
 import Admission from "../page/admission/Admission";
 import CollageCardDetails from "../page/home/collageCard/CollageCardDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
 
         {
           path: '/colleges/details/:id',
-          element: <CollageCardDetails />,
+          element: <PrivateRoute> <CollageCardDetails /></PrivateRoute>,
           loader: ({params}) => fetch(`http://localhost:5000/collage/${params.id}`),
         }
 
