@@ -22,7 +22,7 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/admissionColleges" className={Hover}>
+        <NavLink to="/admission" className={Hover}>
           Admission
         </NavLink>
       </li>
