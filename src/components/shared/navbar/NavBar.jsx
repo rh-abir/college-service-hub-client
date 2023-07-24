@@ -1,30 +1,49 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../provider/AuthProviders";
 
 const NavBar = () => {
-
+  const { user, logOut } = useContext(AuthContext);
+  console.log(user);
 
   const hover = "hover:text-subMain transitions text-white";
   const Hover = ({ isActive }) => (isActive ? "text-subMain" : hover);
 
-
   const navLink = (
     <>
       <li>
-        <NavLink to="/" className={Hover}>Home</NavLink>
+        <NavLink to="/" className={Hover}>
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/Colleges" className={Hover}>Colleges</NavLink>
+        <NavLink to="/Colleges" className={Hover}>
+          Colleges
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/admissionColleges" className={Hover}>Admission</NavLink>
+        <NavLink to="/admissionColleges" className={Hover}>
+          Admission
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/my-colleges" className={Hover}>My College</NavLink>
+        <NavLink to="/my-colleges" className={Hover}>
+          My College
+        </NavLink>
       </li>
     </>
   );
 
-  const isShow = false;
+
+    const hangleLogOut = () => {
+      logOut()
+      .then(() => {
+        console.log('sign out success')
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+    }
 
   return (
     <div className="navbar bg-slate-500 mb-4 container rounded-2xl mx-auto">
@@ -46,6 +65,7 @@ const NavBar = () => {
               />
             </svg>
           </label>
+
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
@@ -59,16 +79,12 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">{navLink}</ul>
       </div>
       <div className="navbar-end">
-        {!isShow ? (
-          <Link to="/signin" className="btn">
-            Log In
-          </Link>
-        ) : (
+        { user ? (
           <div className="">
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <div title={user?.displayName} className="w-10 rounded-full ">
+                  <img src={user?.photoURL} />
                 </div>
               </label>
               <ul
@@ -76,14 +92,18 @@ const NavBar = () => {
                 className="menu menu-sm dropdown-content mt-2 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <NavLink>Profile</NavLink>
+                  <NavLink to='#'>Profile</NavLink>
                 </li>
                 <li>
-                  <NavLink>Logout</NavLink>
+                  <NavLink onClick={hangleLogOut}>Logout</NavLink>
                 </li>
               </ul>
             </div>
           </div>
+        ) : (
+          <Link to="/signin" className="btn">
+            Log In
+          </Link>
         )}
       </div>
     </div>

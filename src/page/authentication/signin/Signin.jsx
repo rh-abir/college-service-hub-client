@@ -1,14 +1,29 @@
 import { Link } from "react-router-dom";
 import SocialLogin from "../../../components/socialLogin/SocialLogin";
 import { MdOutlineLockPerson } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../../../provider/AuthProviders";
 
 const Signin = () => {
+  const { user, singIn } = useContext(AuthContext);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
 
     const email = form.email.value;
     const password = form.password.value;
+
+
+    singIn(email, password)
+    .then(resutl => {
+      console.log(resutl.user)
+    })
+    .cathc(err => {
+      console.log(err.message)
+    })
+
+    
 
     const formData = {
       email,
@@ -18,6 +33,11 @@ const Signin = () => {
     console.log(formData);
   };
 
+
+
+
+
+  
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">
@@ -34,8 +54,6 @@ const Signin = () => {
                 sign In
               </a>
             </div>
-            
-
 
             <div className="relative flex items-center mt-6">
               <span className="absolute">
@@ -88,7 +106,6 @@ const Signin = () => {
                 placeholder="Password"
               />
             </div>
-
 
             <div className="mt-6">
               <button

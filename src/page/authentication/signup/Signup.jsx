@@ -1,33 +1,87 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../../provider/AuthProviders";
 
 import { MdOutlineLockPerson } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../../../components/socialLogin/SocialLogin";
 
 const Signup = () => {
-  const user = useContext(AuthContext);
+  const [error, setError] = useState("");
 
-  console.log(user);
+  const { user, signUp, googleLogin, gitHubLogin , updateUSerProfile} = useContext(AuthContext);
+
+  const navigate = useNavigate()
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setError("");
     const form = event.target;
     const userName = form.name.value;
-    // const uesrPhoto = form.name.value;
+    const photoURL = form.photoURL.value;
     const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
 
-    const formData = {
+    console.log(form.photoURL.value);
+
+    if (password !== confirmPassword) {
+      return setError("Dose not match password");
+    }
+
+    if (!/(?=.*?[A-Z])/.test(password)) {
+      return setError("Don't have a capital letter");
+    }
+
+    if (!/(?=.*?[#?!@$%^&*-])/.test(password)) {
+      return setError("Don't have a special character");
+    }
+
+    //Image Upload
+    // const formData = new FormData();
+    // formData.append("photoURl", photoURL);
+
+    // const url = `https://api.imgbb.com/1/upload?key=${
+    //   import.meta.env.VITE_IMGBB_KEY
+    // }`;
+
+    // fetch(url, {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    // .then((res) => res.json())
+    //   .then((imageData) => {
+    //     const imageUrl = imageData;
+    //     // console.log("image update",imageUrl)
+    //   });
+
+    signUp(email, password)
+    .then(loggUser => {
+        const user = loggUser.user
+        console.log(user)
+        navigate('/')
+    })
+    .catch(err => {
+        const errorCode = err.code;
+        const message = err.message;
+        console.log(message, errorCode)
+    })
+
+
+    
+
+    const allFormData = {
       userName,
+      photoURL,
       email,
       password,
       confirmPassword,
     };
 
-    console.log(formData);
+    console.log(allFormData);
   };
+
+
 
   return (
     <div>
@@ -93,7 +147,12 @@ const Signup = () => {
 
               <h2 className="mx-3 text-gray-400">Profile Photo</h2>
 
-              <input id="dropzone-file" type="file" className="hidden" />
+              <input
+                id="dropzone-file"
+                name="photoURL"
+                type="file"
+                className="hidden"
+              />
             </label>
 
             <div className="relative flex items-center mt-6">
@@ -142,6 +201,7 @@ const Signup = () => {
 
               <input
                 type="password"
+                required
                 name="password"
                 className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                 placeholder="Password"
@@ -174,6 +234,11 @@ const Signup = () => {
               />
             </div>
 
+            {/* error massge */}
+            <div className="mt-3">
+              <p className="text-red-400">{error}</p>
+            </div>
+
             <div className="mt-6">
               <button
                 type="submit"
@@ -186,9 +251,7 @@ const Signup = () => {
                 or sign in with
               </p>
 
-                {
-                    <SocialLogin />
-                }
+              {<SocialLogin />}
 
               <div className="mt-6 text-center ">
                 <Link
