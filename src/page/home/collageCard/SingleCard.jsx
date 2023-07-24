@@ -25,38 +25,36 @@ const SingleCard = ({ item }) => {
       <div className="mt-8">
         <span className="text-blue-500 uppercase">{college_name}</span>
 
-        <h1 className="mt-4 text-xl font-semibold text-gray-800 dark:text-white">
+        <h1 className="mt-4 text-xl font-semibold text-gray-800 ">
           What do you want to know about UI
         </h1>
 
         <ul>
           <li>
-            <p className="mt-2 text-gray-500 dark:text-gray-400">
-              {" "}
-              ✰ {research_history}
-            </p>
+            <p className="mt-2 text-gray-500 "> ✰ {research_history}</p>
           </li>
         </ul>
         <div className="flex items-center justify-between mt-4">
           <div>
-            <p className="text-lg font-medium text-gray-700 dark:text-gray-300  hover:text-gray-500">
+            <p className="text-lg font-medium text-gray-700   hover:text-gray-500">
               Admition Date
             </p>
 
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-gray-500 ">
               Start {admission_dates.fall_semester.start_date}
             </p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm text-gray-500">
               End {admission_dates.fall_semester.end_date}
             </p>
           </div>
 
-          <Link
-          to={`/colleges/details/${_id}`}
-            className="inline-block text-blue-500 underline hover:text-blue-400"
-          >
-            view details
-          </Link>
+          <button className="btn btn-sm inline-block text-blue-500  ">
+            <Link
+              to={`/colleges/details/${_id}`}
+            >
+              view details
+            </Link>
+          </button>
         </div>
       </div>
     </div>

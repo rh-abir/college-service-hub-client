@@ -6,11 +6,9 @@ const CollageCardDetails = () => {
   const {
     admission_dates,
     admission_process,
-    college_details,
     college_image,
     college_name,
     events,
-    research_history,
     research_works,
     sports,
   } = loadeData;
